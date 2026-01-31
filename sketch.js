@@ -1,8 +1,9 @@
 
 
 
-const gravity = 0.5;
+const gravity = 0.6;
 let score = 0, hi = 0;
+let gamespeed = 6;
 let hidisp = "";
 let ground = {
     x: 300,
@@ -57,6 +58,7 @@ function draw() {
     background(200);
     spawnClouds();
 
+    gamespeed += score / 100000;
     if (frameCount % 10 === 0 && running) {
         score++;
     }
@@ -67,7 +69,7 @@ function draw() {
     text(hidisp, width - 200, 30);
     image(gnd, ground.x, ground.y - 20);
     if (running) {
-        ground.x -= 6;
+        ground.x -= gamespeed;
     }
     if (ground.x + ground.width/2 < width) {
         ground.x = ground.width/2;
@@ -120,7 +122,7 @@ function keyPressed() {
 
 function mousePressed() {
     if (running && airpln.y === 330) {
-        airpln.vel = -10;
+        airpln.vel = -15;
     }
 
     if (
@@ -165,6 +167,7 @@ function spawnTowers() {
             l: 75,
             b: 100,
             index: round(random(0, 5)),
+            vel: gamespeed,
         });
     }
 
@@ -180,7 +183,7 @@ function spawnTowers() {
         }
 
         if (running) {
-            towers[i].x -= 6;
+            towers[i].x -= towers[i].vel;
         }
     }
 
@@ -193,6 +196,7 @@ function spawnTowers() {
 
 function reset() {
     running = true;
+    gamespeed = 6;
     towers = [];
     clouds = [];
 
