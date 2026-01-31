@@ -87,7 +87,7 @@ function draw() {
 
     if (running && airpln.y === 330) {
         if (keyIsDown(32)) {
-            airpln.vel = -10;
+            airpln.vel = -15;
         }
     }
 
